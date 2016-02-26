@@ -10,7 +10,7 @@
   <script src="js/colorBox.js"></script> 
 </head>
 
-<body>
+<body tooltip="</br></br></br>Наведите курсор на элементы управления для получения подсказки">
   <div class="pageWrapper">
 	<div class="header">
 		<div></br>Помощь разработчику в подборе CSS параметров фонового цвета</div>
@@ -29,17 +29,17 @@
 	</div>
 	<div class="workingSpace">
 	  <div class="colorBox">	
-	    <div class="slidersPanel" tooltip="0"></div>
+	    <div class="slidersPanel" tooltip="Основная панель управления параметрами цвета. Для выбора нужного значения 'перетаскивайте' мышью бегунок соответсвующего слайдера. Отображаемые в окошках значения соответствуют формату rgba(R,G,B,O)"></div>
 		<div class="screens">
 		  <div class="currentScreenBG"> 
-			<div class="currentColorScreen" tooltip="3"><button class="button">Запомнить этот цвет</button></div>
+			<div class="currentColorScreen" tooltip="Основной экран - 2-слойный: нижний слой представляет собой один из 4 предлагаемых фоновых риcунков, верхний - монохромный с параметрами цвета, которые устанавливаются при помощи слайдеров слева. Запомнить текущее состояние, записав цвет на дополнительный экран, можно нажатием кнопки в верхней части."><button class="button">Запомнить этот цвет</button></div>
 		  </div>
-	      <div class="lastColorScreen" tooltip="4"></div>
+	      <div class="lastColorScreen" tooltip="Дополнительный экран позволяет сравнить выбранный цвет с цветом, отображаемым на большом экране. Выбор цвета дополнительного экрана осуществляется нажатием соответствующего цвета на панели справа. Сохранить текущий цвет большого экрана на дополнительном можно нажатием кнопки сверху."></div>
 	    </div>
 	  </div>
-	 <div class="standartColors" tooltip="1"></div>
-	  <div class="backgroundsPanel" tooltip="2">
-	    <h2><!-- ВАРИАНТЫ ФОНОВЫХ ИЗОБРАЖЕНИЙ ДЛЯ АНАЛИЗА ПРОЗРАЧНОСТИ --></h2>
+	 <div class="standartColors" tooltip="Панель стандартных цветов позволяет быстро установить выбранный цвет с указанием его параметров в формате rgb(R,G,B) на дополнительный экран. Для этого достаточно 'кликнуть' мышью на выбранном цвете"></div>
+	  <div class="backgroundsPanel" tooltip="Набор стандартных фоновых изображений для оценки отображения основного цвета при значениях прозрачности менее 1. Для установки любого изображения достаточно 'кликнуть' мышью на выбранном элементе">
+	    <h2></h2>
 		<img src="images/black.png" class="bgImage" data-image="url(images/black.png)"  alt="Варианты фонового рисунка">
 		<img src="images/white.png" class="bgImage" data-image="url(images/white.png)"  alt="Варианты фонового рисунка">		
 		<img src="images/BaW.png"   class="bgImage" data-image="url(images/BaW.png)"    alt="Варианты фонового рисунка">
@@ -59,10 +59,29 @@
 		<div class="marker"></div>
 	 </div>            
   </script>
+  
+  <script type="text/template" id="table-template">
+	<table>
+		<tbody>
+			<% for(var i = 0; i < 3; i++) {
+				for(var j = 0; j < 3; j++){ %>
+					<tr> <% for (var k = 0; k < 3; k++){
+						var redColor = (i ===0 ) ? 0: i * 128 - 1;
+						var greenColor = (j ===0 ) ? 0: j * 128 - 1;						
+						var blueColor = (k ===0 ) ? 0: k * 128 - 1;						
+						var currentColor = "rgb(" + redColor +"," + greenColor +"," + blueColor +")"; %>
+						<td data-color = " <%=currentColor%>"></td>
+						<% }; %>
+					</tr>
+				<% };
+			}; %>
+		</tbody>
+	</table>
+  </script> 
  
  <script>
 	'use strict';	
-	var allController = new PageController();	
+    new PageController();	
   </script>
   
 </body>

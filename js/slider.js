@@ -1,24 +1,23 @@
-"use strict";
-	
+'use strict';
 /* ----------- Функция-конструктор для слайдера с функциональностью -------------------------- */	
 	function Slider(options) {
 	
 		var coords = {},
 			maxValue = options.maxValue,
 			elem = options.elem,
-			bar = elem.querySelector(".bar"),
-			marker = elem.querySelector(".marker");
+			bar = elem.querySelector('.bar'),
+			marker = elem.querySelector('.marker');
 		
 		initSlider();
-		elem.addEventListener("mousedown", mousedownHandler);
+		elem.addEventListener('mousedown', mousedownHandler);
 
 		function mousedownHandler(e) {
 		
-			if (!e.target.classList.contains("marker")) return;
+			if (!e.target.classList.contains('marker')) return;
 			
 			e.preventDefault();
-			document.addEventListener("mousemove", mousemoveHandler);			
-			document.addEventListener("mouseup", mouseupHandler);
+			document.addEventListener('mousemove', mousemoveHandler);			
+			document.addEventListener('mouseup', mouseupHandler);
 
 			setCurrentCoords(e.clientX);		
 		};
@@ -28,8 +27,8 @@
 		};
 
 		function mouseupHandler() {
-			document.removeEventListener("mousemove", mousemoveHandler);
-			document.removeEventListener("mouseup", mouseupHandler);
+			document.removeEventListener('mousemove', mousemoveHandler);
+			document.removeEventListener('mouseup', mouseupHandler);
 		};
 		
 		function setCurrentCoords(currentClientX) {
@@ -65,9 +64,9 @@
 				newValue = Math.round(100 * maxValue * newX / (coords.barWidth - coords.markerWidth)) / 100;				
 			};
 			
-			elem.querySelector(".currentValue").innerHTML = newValue;
+			elem.querySelector('.currentValue').innerHTML = newValue;
 			
-			var sliderEvent = new CustomEvent("sliderMove", {
+			var sliderEvent = new CustomEvent('sliderMove', {
 								bubbles: true,
 								detail: {name: options.name,
 										 value: newValue}
@@ -86,7 +85,7 @@
 			coords.shift = 0;
 			
 			marker.style.left = options.initValue * (coords.barWidth - coords.markerWidth) / maxValue + 'px';
-			elem.querySelector(".currentValue").innerHTML = options.initValue;
+			elem.querySelector('.currentValue').innerHTML = options.initValue;
 		};		
 	};
 /* --------------------------------------------------------------------------------------------*/
