@@ -8,9 +8,17 @@
 			bar = elem.querySelector('.bar'),
 			marker = elem.querySelector('.marker');
 		
-		initSlider();
 		elem.addEventListener('mousedown', mousedownHandler);
-
+		elem.addEventListener('click', mouseClickHandler);		
+	
+		function mouseClickHandler(e) {
+		
+			if (!e.target.classList.contains('bar')) return;
+			
+			setCurrentCoords(marker.getBoundingClientRect().left);
+			moveMarker(e.clientX);
+		};
+		
 		function mousedownHandler(e) {
 		
 			if (!e.target.classList.contains('marker')) return;
@@ -72,20 +80,6 @@
 										 value: newValue}
 								});
 			elem.dispatchEvent(sliderEvent);
-		};
-		
-		function initSlider() {
-			
-			var barCoords = bar.getBoundingClientRect();
-			var markerCoords = marker.getBoundingClientRect();
-			
-			coords.barX = barCoords.left;
-			coords.barWidth = barCoords.right - barCoords.left;
-			coords.markerWidth = markerCoords.right - markerCoords.left;
-			coords.shift = 0;
-			
-			marker.style.left = options.initValue * (coords.barWidth - coords.markerWidth) / maxValue + 'px';
-			elem.querySelector('.currentValue').innerHTML = options.initValue;
 		};		
 	};
 /* --------------------------------------------------------------------------------------------*/

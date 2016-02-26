@@ -35,7 +35,6 @@ function PageController() {
 	document.querySelector('.button').addEventListener('click', function(){
 			setLastColorScreen( 'rgb(' + colors.slice(0,3).join(',') + ')');
 	});
-
 /* Построение слайдеров и инициализация слушателей на них                                      */
 	renderSlidersPanel(sliders);
 	document.addEventListener('sliderMove', sliderMoveHandler);
@@ -114,24 +113,34 @@ function PageController() {
 	};	
 /* ----------- Функция построения 4 слайдеров  в DOM  --------------------------------------- */
 	function renderSlidersPanel(sliders) {	
-		
-		var elem;			 
+					 
 		var tmpl = _.template(document.getElementById('slider-template').innerHTML.trim());
 		var container = document.querySelector('.slidersPanel');
 		
 		for( var i = 0; i < sliders.length; i++) {
-			elem = document.createElement('div');
-			elem.classList.add('slider');
-			elem.setAttribute('data-name', sliders[i].name);
-			elem.innerHTML = tmpl({name:sliders[i].name});
-			elem = container.appendChild(elem);
+			container.innerHTML += tmpl({name: sliders[i].name, initValue: sliders[i].initValue });
+			setMarker(sliders[i].name, sliders[i].initValue, sliders[i].maxValue);
+		};
+		for( var i = 0; i < sliders.length; i++) {
 			new Slider({
 				 name: sliders[i].name,
 				 maxValue: sliders[i].maxValue,
 				 initValue: sliders[i].initValue,
-				 elem: elem
+				 elem: document.querySelector('[data-name="' + sliders[i].name + '"]')
 			});
-		};
+		};	
+	};
+/* ----------- Функция установки начального положения маркера -------------------------------- */
+	function setMarker(sliderName, initValue, maxValue) {
+			
+		var bar = document.querySelector('[data-name="' + sliderName + '"]').querySelector('.bar');
+		var marker = document.querySelector('[data-name="' + sliderName + '"]').querySelector('.marker');			
+		var barCoords = bar.getBoundingClientRect();
+		var markerCoords = marker.getBoundingClientRect();			
+		var barWidth = barCoords.right - barCoords.left;
+		var markerWidth = markerCoords.right - markerCoords.left;
+			
+		marker.style.left = initValue * (barWidth - markerWidth) / maxValue + 'px';
 	};	
 /* --------------------------------------------------------------------------------------------*/
 

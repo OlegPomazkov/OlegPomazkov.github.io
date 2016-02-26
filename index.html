@@ -29,7 +29,7 @@
 	</div>
 	<div class="workingSpace">
 	  <div class="colorBox">	
-	    <div class="slidersPanel" tooltip="Основная панель управления параметрами цвета. Для выбора нужного значения 'перетаскивайте' мышью бегунок соответсвующего слайдера. Отображаемые в окошках значения соответствуют формату rgba(R,G,B,O)"></div>
+	    <div class="slidersPanel" tooltip="Основная панель управления параметрами цвета. Для выбора нужного значения 'перетаскивайте' мышью бегунок соответсвующего слайдера или 'кликните' мышью в нужном месте на его шкале. Отображаемые в окошках значения соответствуют формату rgba(R,G,B,O)"></div>
 		<div class="screens">
 		  <div class="currentScreenBG"> 
 			<div class="currentColorScreen" tooltip="Основной экран - 2-слойный: нижний слой представляет собой один из 4 предлагаемых фоновых риcунков, верхний - монохромный с параметрами цвета, которые устанавливаются при помощи слайдеров слева. Запомнить текущее состояние, записав цвет на дополнительный экран, можно нажатием кнопки в верхней части."><button class="button">Запомнить этот цвет</button></div>
@@ -53,11 +53,13 @@
   </div> 
   
   <script type="text/template" id="slider-template">
-	 <div class="sliderName"><%-name%></div>
-	 <div class="currentValue">0</div>
-	 <div class="bar">
-		<div class="marker"></div>
-	 </div>            
+	<div class="slider" data-name="<%-name%>">
+	   <div class="sliderName"><%-name%></div>
+	   <div class="currentValue"><%-initValue%></div>
+	   <div class="bar">
+		  <div class="marker"></div>
+	   </div>
+	</div>
   </script>
   
   <script type="text/template" id="table-template">
